@@ -1,3 +1,4 @@
+import '@tarojs/async-await'
 import Taro, { Component, Config } from '@tarojs/taro'
 import Index from './pages/index'
 
@@ -48,3 +49,5 @@ class App extends Component {
 }
 
 Taro.render(<App />, document.getElementById('app'))
+
+Taro.cloud.init()

@@ -1,0 +1,12 @@
+.rating {
+    position: relative;
+    display: inline-block;
+    .hollow {
+        position: absolute;
+        display: inline-block;
+        top: 0;
+        left: 0;
+        width: 0;
+        overflow: hidden;
+    }
+}

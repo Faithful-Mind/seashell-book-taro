@@ -17,6 +17,7 @@ export interface BookInfoBook {
   title: string;
   authors?: string;
   publisher?: string;
+  url: string;
   rating: number;
   image: string;
   /** for crawled data */

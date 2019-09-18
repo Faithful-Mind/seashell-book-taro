@@ -8,7 +8,7 @@ import {
   getBookDetailByIsbn,
   incBookClickCount,
   getCommentsByDoubanBookUrl
-} from './services'
+} from '../../services/detail'
 import BookInfo from '../../components/book-info'
 import CommentsSection from '../../components/comments-section'
 

@@ -3,7 +3,7 @@ import { View } from '@tarojs/components'
 import './index.scss'
 
 import { TopSwiperBook, ListBook } from '../../types/book'
-import { getTops, getBookList } from './services'
+import { getTops, getBookList } from '../../services/home'
 
 import TopSwiper from '../../components/top-swiper'
 import Card from '../../components/card'

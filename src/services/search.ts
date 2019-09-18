@@ -5,7 +5,7 @@ import { BookResult } from "../types/search"
  * @param toIndex the string to index
  * @param searchString the value to search
  */
-export function indexOf (toIndex: string, searchString: string, fromIndex = 0) {
+function indexOf (toIndex: string, searchString: string, fromIndex = 0) {
   const stringIndex = toIndex.indexOf(searchString, fromIndex)
   return stringIndex === -1 ? Infinity : stringIndex
 }

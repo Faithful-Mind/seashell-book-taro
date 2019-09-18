@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { ShortComment } from '../../types/comment'
+import { ShortComment } from '../types/comment'
 
 const db = Taro.cloud.database()
 

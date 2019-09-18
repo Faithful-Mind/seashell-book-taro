@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { TopSwiperBook, ListBook } from '../../types/book'
+import { TopSwiperBook, ListBook } from '../types/book'
 
 const db = Taro.cloud.database()
 

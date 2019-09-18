@@ -22,13 +22,32 @@ class App extends Component {
   config: Config = {
     pages: [
       'pages/index/index',
-      'pages/detail/index'
+      'pages/detail/index',
+      'pages/search/index',
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      color: '#999',
+      backgroundColor: '#fafafa',
+      selectedColor: '#0288d1',
+      borderStyle: 'white',
+      list: [{
+        text: '图书',
+        pagePath: 'pages/index/index',
+        iconPath: 'assets/image/book.png',
+        selectedIconPath: 'assets/image/book-active.png'
+      }, {
+        text: '搜索',
+        pagePath: 'pages/search/index',
+        iconPath: 'assets/image/search.png',
+        selectedIconPath: 'assets/image/search-active.png'
+      }],
+      position: 'bottom',
     }
   }
 

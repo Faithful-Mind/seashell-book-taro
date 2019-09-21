@@ -15,14 +15,14 @@ export type TopSwiperBook = {
 
 export interface BookInfoBook {
   title: string;
+  url: string;
+  image: string;
+  summary: string;
   authors?: string;
   publisher?: string;
-  url: string;
-  rating: number;
-  image: string;
+  rating?: number;
+  tags?: string;
+  price?: string;
   /** for crawled data */
   abstract?: string;
-  summary: string;
-  tags?: string | [string];
-  price?: string;
 }

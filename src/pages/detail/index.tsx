@@ -7,7 +7,8 @@ import { ShortComment } from '../../types/comment'
 import {
   getBookDetailByIsbn,
   incBookClickCount,
-  getCommentsByDoubanBookUrl
+  getCommentsByDoubanBookUrl,
+  fetchDetailByUrl
 } from '../../services/detail'
 import BookInfo from '../../components/book-info'
 import CommentsSection from '../../components/comments-section'
@@ -28,14 +29,27 @@ export default class Detail extends Component<{}, {
   }
 
   async componentWillMount () {
-    const { isbn = '' } = this.$router.params
-    this.setState(
-      {
-        bookInfo: await getBookDetailByIsbn(isbn),
-      },
-      () =>
-        this.state.bookInfo._id && incBookClickCount(this.state.bookInfo._id)
-    )
+    const { isbn = '', url = '' } = this.$router.params
+    if (isbn) {
+      this.setState(
+        {
+          bookInfo: await getBookDetailByIsbn(isbn),
+        },
+        () =>
+          this.state.bookInfo._id && incBookClickCount(this.state.bookInfo._id)
+      )
+    }
+    if (url) {
+      const bookInfo = await fetchDetailByUrl(url)
+      this.setState({
+        bookInfo: {
+          ...bookInfo,
+          url,
+          image: bookInfo.image || '',
+          summary: bookInfo.summary || '',
+        },
+      })
+    }
   }
 
   async onReachBottom () {

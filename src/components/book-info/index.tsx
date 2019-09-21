@@ -19,9 +19,6 @@ export default class BookInfo extends Component<{ info: BookInfoBook }> {
   }
 
   tagsArr () {
-    if (this.props.info.tags instanceof Array) {
-      return this.props.info.tags
-    }
     return (this.props.info.tags && this.props.info.tags.split(',')) || []
   }
 
@@ -57,10 +54,12 @@ export default class BookInfo extends Component<{ info: BookInfoBook }> {
           </View>
         </View>
         <View className='row'>
-          <View className='right'>
-            {info.rating}分
-            <Rating value={info.rating} />
-          </View>
+          {typeof info.rating === 'number' && !isNaN(info.rating) &&
+            <View className='right'>
+              {info.rating}分
+              <Rating value={info.rating} />
+            </View>
+          }
         </View>
         <View className='row'>
           {info.publisher}

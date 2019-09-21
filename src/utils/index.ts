@@ -12,3 +12,22 @@ export function chunk<T> (arr: T[], size = 3) {
   }
   return arr2
 }
+
+/**
+ * Try to get value. If encounter a null, fallback value is returned
+ * @param func callback to get value
+ * @param fallbackValue fallback value
+ */
+export function _try<T> (func: () => T, fallbackValue?: T) {
+  try {
+    const value = func()
+    return (value == null) ? fallbackValue : value
+  } catch (e) {
+    if (e instanceof TypeError) {
+      console.warn(e)
+      return fallbackValue
+    } else {
+      throw e
+    }
+  }
+}

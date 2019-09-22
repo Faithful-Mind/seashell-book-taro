@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import DOMParser from 'dom-parser'
+import { parse } from 'node-html-parser'
 
 import { ShortComment } from '../types/comment'
 import { _try } from '../utils'
@@ -79,50 +79,43 @@ type BookDetail = {
  * Parse book info by DOM manipulation
  */
 function parseBookDOM (bodyString: string) {
-  const parser = new DOMParser()
-  const doc: Document = parser.parseFromString(bodyString, 'text/html')
+  const doc = parse(bodyString, 'text/html')
 
   /** simulate
-   * `$('meta[property="weixin:timeline_title"]').prop('content').slice(0, -5)`
+   * `$('[property="weixin:timeline_title"]').prop('content').slice(0, -5)`
    */
-  const title = Array.from(doc.getElementsByTagName('meta'))
-    .filter(e => e.getAttribute('property') === "weixin:timeline_title")[0]
-    .getAttribute('content')!.slice(0, -5)
+  const title = doc.querySelector('[property="weixin:timeline_title"]')
+    .attributes['content'].slice(0, -5)
 
   /** simulate `$('.sub-cover img').prop('src')` */
   const image = _try(
-    () => doc.getElementsByClassName('sub-cover')[0]
-      .getElementsByTagName('img')[0].getAttribute('src'),
+    () => doc.querySelector('.sub-cover img').attributes['src'],
     undefined
   )
 
-  /** simulate `$('meta[itemprop="ratingValue"]').prop('content')` */
+  /** simulate `$('[itemprop="ratingValue"]').prop('content')` */
   const rating = _try(
-    () => Array.from(doc.getElementsByTagName('meta'))
-      .filter(e => e.getAttribute('itemprop') === "ratingValue")[0]
-      .getAttribute('content'),
+    () => doc.querySelector('[itemprop="ratingValue"]').attributes['content'],
     undefined
   )
 
   /** simulate `$('.sub-meta').text()` */
   const abstract = _try(
-    () => doc.getElementsByClassName('sub-meta')[0]
-      .textContent!.replace(/\s*\n\s*/g, ' ').trim(),
+    () => doc.querySelector('.sub-meta').text.replace(/\s*\n\s*/g, ' ').trim(),
     undefined
   )
 
   /** simulate `$('p.section-intro_desc').find('br').replaceWith('\n').text()` */
   const summary = _try(
     () => {
-      const summaryRes = Array.from(doc.getElementsByClassName('section-intro_desc'))
-        .filter(ele => ele.nodeName === 'p')[0]
+      const summaryEle = doc.querySelector('p.section-intro_desc')
       // remove unnecessary line breaks
-      const summaryHTMLOneLine = summaryRes.innerHTML.replace(/\s*\n\s*/g, ' ')
+      const summaryHTMLOneLine = summaryEle.innerHTML.replace(/\s*\n\s*/g, ' ')
       // preserve <br/> as line breaks
-      const summaryNewEle = parser.parseFromString(
+      const summaryNewEle = parse(
         '<div>' + summaryHTMLOneLine.replace(/\s*<br\s*\/*>\s*/g, '\n') + '</div>'
-      ).getElementsByTagName('div')[0]
-      return summaryNewEle.textContent.trim()
+      ).querySelector('div')
+      return summaryNewEle.text.trim()
     },
     undefined
   )

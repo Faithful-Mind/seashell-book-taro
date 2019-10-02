@@ -24,6 +24,7 @@ class App extends Component {
       'pages/index/index',
       'pages/detail/index',
       'pages/search/index',
+      'pages/me/index',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -46,6 +47,11 @@ class App extends Component {
         pagePath: 'pages/search/index',
         iconPath: 'assets/image/search.png',
         selectedIconPath: 'assets/image/search-active.png'
+      }, {
+        text: '我',
+        pagePath: 'pages/me/index',
+        iconPath: 'assets/image/user.png',
+        selectedIconPath: 'assets/image/user-active.png'
       }],
       position: 'bottom',
     }

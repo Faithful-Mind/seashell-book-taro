@@ -6,6 +6,7 @@ import { UserInfo } from '../../types/user-info'
 import { ListBook } from '../../types/book'
 import { addBookByIsbn, getBooksByOpenId } from '../../services/me'
 import Card from '../../components/card'
+import YearProgress from '../../components/year-progress'
 
 export default class Me extends Component<{}, {
   userInfo: UserInfo;
@@ -133,6 +134,7 @@ export default class Me extends Component<{}, {
             )}
           </View>
 
+          <YearProgress />
           {this.state.userInfo.openId && (
             <Button className='btn' onClick={this.handleScanBook}>
               添加新图书
